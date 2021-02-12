@@ -1,0 +1,17 @@
+FROM node
+
+RUN npm i -g npm
+
+WORKDIR /app
+
+COPY .gitignore /app/.gitignore 
+COPY config.env /app/config.env
+COPY tsconfig.json /app/tsconfig.json
+COPY nodemon.json /app/nodemon.json
+COPY package.json /app/package.json
+COPY package-lock.json /app/package-lock.json
+
+RUN npm install
+EXPOSE 4000
+
+CMD ["npm", "run", "start:dev"]

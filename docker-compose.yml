@@ -1,0 +1,52 @@
+version: "3"
+
+services:
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile.dev
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgres://postgres:mypassword@db:5432/my_db
+      NODE_ENV: development
+      PORT: 4000
+    ports:
+      - "4000:4000"
+    command: npm run start:dev
+    volumes:
+      - ./server:/app
+      - /app/node_modules
+
+  # ui:
+  #   build:
+  #     context: ./ui
+  #     dockerfile: Dockerfile.dev
+  #   depends_on:
+  #     - db
+  #   environment:
+  #     NODE_ENV: development
+  #     PORT: 3000
+  #   ports:
+  #     - "3000:3000"
+  #   command: npm run start
+  #   volumes:
+  #     - ./ui:/app
+
+  db:
+    image: postgres
+    restart: always
+    ports:
+      - "35432:5432"
+    environment:
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_USER: postgres
+      POSTGRES_DB: my_db
+    volumes:
+      - ./postgresql/data:/var/lib/postgresql/data
+
+  # adminer:
+  #   image: adminer
+  #   restart: always
+  #   ports:
+  #     - 8080:8080

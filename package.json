@@ -1,0 +1,17 @@
+{
+  "name": "docker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "docker:build": "docker-compose -p {name} build",
+    "docker:down": "docker-compose -p {name} down",
+    "docker:up": "docker-compose -p {name} up"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express-fileupload": "^1.2.1"
+  }
+}
